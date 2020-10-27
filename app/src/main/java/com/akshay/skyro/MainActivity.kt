@@ -31,19 +31,24 @@ class MainActivity : AppCompatActivity() {
         viewPager1.adapter = pagerAdapter
 
         viewPager1.addOnPageChangeListener(TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.setOnTabSelectedListener(object : OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                Log.e("ViewPager ", " getCurrentItem() " + viewPager1.getCurrentItem())
-                viewPager1.setCurrentItem(tab.position)
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                Log.d("CURRR POSITION", tab!!.position.toString())
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
         })
     }
 
     private fun init(){
-        for (no in 1..10) {
+        for (no in 0..9) {
             list.add(NewsData("bbc$no", "Akshay$no", "Khanna"))
             list.add(NewsData("bbc$no", "Akshay$no", "Khanna"))
             list.add(NewsData("bbc$no", "Akshay$no", "Khanna"))
@@ -56,9 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun tabInit(){
-        for(item in 1..10) {
-            tabLayout.addTab(tabLayout.newTab().setText("$item"))
-        }
+        tabLayout.setupWithViewPager(viewPager1)
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
     }
 }
